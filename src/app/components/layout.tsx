@@ -5,7 +5,7 @@ export default function Layout({ children }: PropsWithChildren) {
     <div className="w-full h-screen bg-gray-200 flex justify-center flex-row">
       <div
         className="bg-white flex items-center flex-col p-4 gap-4"
-        style={{ width: 400 }}
+        style={{ width: 480 }}
       >
         {children}
       </div>
