@@ -1,4 +1,4 @@
-import { FloatButton } from "antd";
+import { Typography } from "antd";
 import Image from "next/image";
 import React from "react";
 
@@ -8,12 +8,12 @@ export type FoodCardType = {
 };
 export default function FoodCard(props: FoodCardType) {
   const { price, title } = props;
+  const { Text } = Typography;
   return (
-    <div className='shadow-md p-2 rounded-lg'>
+    <div className='shadow-md p-2 rounded-lg mt-9 mr-6'>
       <Image src={"/logo.png"} alt='logo' height={100} width={100} />
       <p>{title}</p>
       <p>{price}</p>
-      <FloatButton />
     </div>
   );
 }
