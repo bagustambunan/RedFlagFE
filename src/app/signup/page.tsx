@@ -3,11 +3,10 @@
 import React from "react";
 import Layout from "../components/layout";
 import { Button, Form, Image, Input, Space } from "antd";
-import useLogin from "./hooks";
+import useRegiter from "./hooks";
 
 export default function page() {
-  const { form, handleSubmit, loading } = useLogin();
-
+  const { form, handleSubmit, loading } = useRegiter();
   return (
     <Layout>
       <Image
@@ -23,6 +22,12 @@ export default function page() {
         labelAlign="left"
         className="w-full"
       >
+        <Form.Item label="Name" name="name">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Phone Number" name="phone">
+          <Input />
+        </Form.Item>
         <Form.Item label="Email" name="email">
           <Input />
         </Form.Item>
@@ -32,9 +37,9 @@ export default function page() {
         <Form.Item>
           <Space>
             <Button onClick={handleSubmit} type="primary" loading={loading}>
-              Login
+              Sign Up
             </Button>
-            <Button href="/signup">Sign Up</Button>
+            <Button href="/login">Login</Button>
           </Space>
         </Form.Item>
       </Form>
