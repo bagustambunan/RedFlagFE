@@ -3,8 +3,8 @@ import Image from "next/image";
 import React from "react";
 
 export type FoodCardType = {
-  title: string;
-  price: string;
+  title?: string;
+  price?: string;
 };
 export default function FoodCard(props: FoodCardType) {
   const { price, title } = props;

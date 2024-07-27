@@ -29,9 +29,7 @@ const useLogin = () => {
     }
   };
 
-  useEffect(() => {
-    if (isLogin) router.push("/dashboard");
-  }, [isLogin]);
+  if(isLogin) router.push("/dashboard")
 
   return {
     form,

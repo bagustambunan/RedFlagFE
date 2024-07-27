@@ -6,10 +6,12 @@ import Image from "next/image";
 import FoodCard, { FoodCardType } from "../components/food-card";
 import Preference from "../components/preference";
 import { Affix, Row, Space, Typography } from "antd";
+import useGetFood from "./hooks";
 
 export default function Dashboard() {
   const [container, setContainer] = React.useState<HTMLDivElement | null>(null);
   const { Text } = Typography;
+  const { data } = useGetFood();
 
   const products: FoodCardType[] = [
     {
@@ -89,12 +91,14 @@ export default function Dashboard() {
           <Space ref={setContainer}>
             <Affix target={() => container}>
               <Row justify={"center"}>
-                <Text>Hi .... anything to eat today, here our recommendations</Text>
-                {products.map((food) => (
+                <Text>
+                  Hi .... anything to eat today, here our recommendations
+                </Text>
+                {data?.map((food) => (
                   <FoodCard
-                    key={food.title}
-                    title={food.title}
-                    price={food.price}
+                    key={food.foodID}
+                    title={food.foodName}
+                    price={food.foodCal?.toString()}
                   />
                 ))}
               </Row>

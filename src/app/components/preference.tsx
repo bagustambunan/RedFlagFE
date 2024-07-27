@@ -10,37 +10,26 @@ import {
   Typography,
 } from "antd";
 import React from "react";
+import useGetFood from "../dashboard/hooks";
 
 export default function Preference() {
+  const { data, updateFoodPreference, dataFoodCat } = useGetFood();
   const { Text } = Typography;
 
-  const options: SelectProps["options"] = [
-    {
-      label: "Ayam",
-      value: "ayam",
-    },
-    {
-      label: "Ikan",
-      value: "ikan",
-    },
-    {
-      label: "Roti & Kue",
-      value: "roti&kue",
-    },
-    {
-      label: "Telur",
-      value: "telur",
-    },
-    {
-      label: "Daging",
-      value: "daging",
-    },
-  ];
+  const options: SelectProps["options"] = dataFoodCat.map((item) => {
+    return {
+      label: item[0],
+      value: item[0],
+    };
+  });
 
   function handleFinish(values: any): void {
-    console.log(values);
+    updateFoodPreference({
+      bb: values.bb,
+      tb: values.tb,
+      foodCat: JSON.stringify(values.favfood),
+    });
   }
-
   return (
     <Row gutter={16} justify='center' align='middle'>
       <Text>
