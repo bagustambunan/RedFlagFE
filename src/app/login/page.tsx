@@ -4,6 +4,7 @@ import React from "react";
 import Layout from "../components/layout";
 import { Button, Form, Image, Input, Space } from "antd";
 import useLogin from "./hooks";
+import Link from "next/link";
 
 export default function page() {
   const { form, handleSubmit, loading } = useLogin();
@@ -34,7 +35,9 @@ export default function page() {
             <Button onClick={handleSubmit} type="primary" loading={loading}>
               Login
             </Button>
-            <Button href="/signup">Sign Up</Button>
+            <Link href="/signup">
+              <Button>Sign Up</Button>
+            </Link>
           </Space>
         </Form.Item>
       </Form>

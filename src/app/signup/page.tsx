@@ -4,6 +4,7 @@ import React from "react";
 import Layout from "../components/layout";
 import { Button, Form, Image, Input, Space } from "antd";
 import useRegiter from "./hooks";
+import Link from "next/link";
 
 export default function page() {
   const { form, handleSubmit, loading } = useRegiter();
@@ -39,7 +40,9 @@ export default function page() {
             <Button onClick={handleSubmit} type="primary" loading={loading}>
               Sign Up
             </Button>
-            <Button href="/login">Login</Button>
+            <Link href="/login">
+              <Button>Login</Button>
+            </Link>
           </Space>
         </Form.Item>
       </Form>
