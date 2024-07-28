@@ -25,6 +25,7 @@ const useLogin = () => {
 
     if (res.data.token) {
       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("bmi", res.data.BMI || '');
       router.push("/dashboard");
     }
   };

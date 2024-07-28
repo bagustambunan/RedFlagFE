@@ -1,26 +1,40 @@
 "use client";
 
-import React, { CSSProperties } from "react";
+import React, { CSSProperties, useEffect, useState } from "react";
 import Layout from "../components/layout";
 import Image from "next/image";
-import FoodCard, { FoodCardType } from "../components/food-card";
+import FoodCard from "../components/food-card";
 import Preference from "../components/preference";
-import { Affix, Row, Space, Typography, Col, Spin } from "antd";
-import cookingImage from "../../../public/cooking.png";
+import { Affix, Row, Space, Typography, Col, Select, SelectProps } from "antd";
 import useGetFood from "./hooks";
 import LoadingPage from "../components/loading-page";
+import { COLOR } from "../constants";
 
 export default function Dashboard() {
   const [container, setContainer] = React.useState<HTMLDivElement | null>(null);
   const { Text } = Typography;
-  const { data, loading } = useGetFood();
+  const { data, loading, getUserFavFood, userFavFood } = useGetFood();
+  const hasBMI = localStorage.getItem('bmi') || false
+  // const [favFood, setFavfood] = useState<string[]>([]);
+
+  const options: SelectProps["options"] = userFavFood.map((item) => {
+    return {
+      label: item,
+      value: item,
+    };
+  });
 
   if (loading) return <LoadingPage />;
+
+  function handleMultipleSelection(val: string[]) {
+    console.log(val);
+    // setFavfood(val)
+  }
 
   return (
     <div>
       <Layout>
-        {true ? (
+        {hasBMI ? (
           <Space ref={setContainer}>
             <Affix target={() => container}>
               <Row justify={"center"} className='text-center'>
@@ -29,6 +43,15 @@ export default function Dashboard() {
                   Hello, what would you like to eat today? Here are our
                   recommended dishes.
                 </Text>
+                <Select
+                  mode='multiple'
+                  // value={userFavFood}
+                  allowClear
+                  style={{ width: "100%" }}
+
+                  options={options}
+                  onChange={(val) => handleMultipleSelection(val)}
+                />
               </Row>
               <Row justify={"center"} className='w-100'>
                 {data?.map((food) => (

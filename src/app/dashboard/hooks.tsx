@@ -1,12 +1,17 @@
+'use client'
 import { post } from "@/utils/api";
 import React, { useEffect, useState } from "react";
 import { Food, FoodListType } from "./types";
+import { notification } from "antd";
+import { useRouter } from 'next/navigation'
 
 export default function useGetFood() {
   const [data, setData] = useState<Food[]>();
   const [dataFoodCat, setDataFoodCat] = useState<string[]>([]);
+  const [userFavFood, setUserFavFood] = useState<string[]>([]);
   const token = localStorage.getItem("token");
   const [loading, setLoading] = useState(false);
+
 
   async function handleGetFoodList() {
     setLoading(true);
@@ -36,14 +41,19 @@ export default function useGetFood() {
       url: "/setUserFavFoodCat",
       params: { token, foodCat: foodCat },
     });
+    notification.success({ message: "Update Successfull" });
+    
   }
 
   async function getUserFavFood() {
-    await post({ url: "/userFavFoodCat", params: { token } });
+    const res = await post({ url: "/userFavFoodCat", params: { token } });
+    setUserFavFood(res.data.userFoodFavCat);
   }
 
   useEffect(() => {
     handleGetFoodList();
+    getUserFavFood();
+    handleGetFoodCat();
   }, []);
 
   return {
@@ -55,6 +65,8 @@ export default function useGetFood() {
     dataFoodCat,
     setDataFoodCat,
     handleGetFoodList,
-    loading
+    loading,
+    userFavFood,
+    setUserFavFood,
   };
 }
