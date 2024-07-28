@@ -4,7 +4,7 @@ import { Food, FoodListType } from "./types";
 
 export default function useGetFood() {
   const [data, setData] = useState<Food[]>();
-  const [dataFoodCat, setDataFoodCat] = useState([]);
+  const [dataFoodCat, setDataFoodCat] = useState<string[]>([]);
   const token = localStorage.getItem("token");
 
   async function handleGetFoodList() {
