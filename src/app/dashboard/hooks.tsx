@@ -1,9 +1,9 @@
-'use client'
+"use client";
 import { post } from "@/utils/api";
 import React, { useEffect, useState } from "react";
 import { Food, FoodListType } from "./types";
 import { notification } from "antd";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 
 export default function useGetFood() {
   const [data, setData] = useState<Food[]>();
@@ -11,7 +11,8 @@ export default function useGetFood() {
   const [userFavFood, setUserFavFood] = useState<string[]>([]);
   const token = localStorage.getItem("token");
   const [loading, setLoading] = useState(false);
-
+  const [bmiUpdated, setBmiUpdated] = useState(false);
+  const route = useRouter();
 
   async function handleGetFoodList() {
     setLoading(true);
@@ -42,7 +43,8 @@ export default function useGetFood() {
       params: { token, foodCat: foodCat },
     });
     notification.success({ message: "Update Successfull" });
-    
+    localStorage.setItem("bmi", "298.0");
+    route.push("/dashboard");
   }
 
   async function getUserFavFood() {
@@ -68,5 +70,6 @@ export default function useGetFood() {
     loading,
     userFavFood,
     setUserFavFood,
+    bmiUpdated,
   };
 }

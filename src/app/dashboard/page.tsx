@@ -9,13 +9,16 @@ import { Affix, Row, Space, Typography, Col, Select, SelectProps } from "antd";
 import useGetFood from "./hooks";
 import LoadingPage from "../components/loading-page";
 import { COLOR } from "../constants";
+import { useRouter } from 'next/navigation'
 
 export default function Dashboard() {
   const [container, setContainer] = React.useState<HTMLDivElement | null>(null);
   const { Text } = Typography;
-  const { data, loading, getUserFavFood, userFavFood } = useGetFood();
-  const hasBMI = localStorage.getItem('bmi') || false
+  const { data, loading, getUserFavFood, userFavFood, bmiUpdated } =
+    useGetFood();
+  const hasBMI = localStorage.getItem("bmi") || false;
   // const [favFood, setFavfood] = useState<string[]>([]);
+  const route = useRouter()
 
   const options: SelectProps["options"] = userFavFood.map((item) => {
     return {
@@ -24,6 +27,7 @@ export default function Dashboard() {
     };
   });
 
+  if(!hasBMI) route.push("/bmi")
   if (loading) return <LoadingPage />;
 
   function handleMultipleSelection(val: string[]) {
@@ -48,7 +52,6 @@ export default function Dashboard() {
                   // value={userFavFood}
                   allowClear
                   style={{ width: "100%" }}
-
                   options={options}
                   onChange={(val) => handleMultipleSelection(val)}
                 />
@@ -68,7 +71,8 @@ export default function Dashboard() {
             </Affix>
           </Space>
         ) : (
-          <Preference />
+          // <Preference />
+          <></>
         )}
       </Layout>
     </div>
