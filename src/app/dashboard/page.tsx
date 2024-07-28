@@ -5,15 +5,17 @@ import Layout from "../components/layout";
 import Image from "next/image";
 import FoodCard, { FoodCardType } from "../components/food-card";
 import Preference from "../components/preference";
-import { Affix, Row, Space, Typography, Col } from "antd";
+import { Affix, Row, Space, Typography, Col, Spin } from "antd";
 import cookingImage from "../../../public/cooking.png";
 import useGetFood from "./hooks";
+import LoadingPage from "../components/loading-page";
 
 export default function Dashboard() {
   const [container, setContainer] = React.useState<HTMLDivElement | null>(null);
   const { Text } = Typography;
-  const { data } = useGetFood();
+  const { data, loading } = useGetFood();
 
+  if (loading) return <LoadingPage />;
 
   return (
     <div>
@@ -24,7 +26,8 @@ export default function Dashboard() {
               <Row justify={"center"} className='text-center'>
                 <h2 style={styles.title}>RedFlag Apps</h2>
                 <Text style={styles.subtitle}>
-                  Hi .... anything to eat today, here our recommendations
+                  Hello, what would you like to eat today? Here are our
+                  recommended dishes.
                 </Text>
               </Row>
               <Row justify={"center"} className='w-100'>
@@ -53,11 +56,11 @@ const styles: { [key: string]: CSSProperties } = {
   title: {
     fontSize: "1.5rem",
     fontWeight: "bold",
-    color: "#d62828",
+    color: "#f3b765",
   },
   subtitle: {
     fontSize: "1rem",
-    color: "#6c757d",
+    color: "#f3b765",
     marginBottom: "1rem",
   },
 };

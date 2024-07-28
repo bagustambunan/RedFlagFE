@@ -7,7 +7,7 @@ export default function Layout({ children }: PropsWithChildren) {
   return (
     <div className='w-full h-screen bg-gray-200 flex justify-center flex-row'>
       <div
-        className='bg-white flex items-center flex-col p-4 gap-4'
+        className='bg-[#242526] flex items-center flex-col p-4 gap-4'
         style={{ width: 480, height: "100%", overflow: "scroll" }}
       >
         {children}

@@ -14,7 +14,7 @@ const FoodCard: React.FC<FoodCardType> = (args: FoodCardType) => {
   const { cal, fodcat, title } = args;
 
   return (
-    <div className='shadow-md p-2 rounded-lg mt-2'>
+    <div className='shadow-md p-2 rounded-lg mt-2 bg-[#18191a]'>
       <Row gutter={[24, 24]}>
         <Col xs={6} sm={6} md={6} lg={6}>
           <Image
@@ -28,7 +28,7 @@ const FoodCard: React.FC<FoodCardType> = (args: FoodCardType) => {
         <Col xs={18} sm={18} md={18} lg={18} className='pt-3'>
           <Text style={styles.title}>{title}</Text>
           <br />
-          <Text style={styles.subtitle}>{cal}</Text>
+          <Text style={styles.subtitle}>Estimate Cal: {cal}</Text>
           <br />
           <Flex gap='4px 0' wrap className="mt-3">
             {fodcat?.map((item) => (
@@ -45,11 +45,11 @@ const styles: { [key: string]: CSSProperties } = {
   title: {
     fontSize: "0.8rem",
     fontWeight: "bold",
-    color: "#d62828",
+    color: "#f3b765",
   },
   subtitle: {
     fontSize: "0.8rem",
-    color: "#6c757d",
+    color: "#f3b765",
     marginBottom: "1rem",
   },
 };

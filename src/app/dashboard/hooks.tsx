@@ -6,10 +6,17 @@ export default function useGetFood() {
   const [data, setData] = useState<Food[]>();
   const [dataFoodCat, setDataFoodCat] = useState<string[]>([]);
   const token = localStorage.getItem("token");
+  const [loading, setLoading] = useState(false);
 
   async function handleGetFoodList() {
-    const res = await post({ url: "/food", params: { token } });
-    setData(res.data.food);
+    setLoading(true);
+    try {
+      const res = await post({ url: "/food", params: { token } });
+      setData(res.data.food);
+    } catch (error) {
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function handleGetFoodCat() {
@@ -48,5 +55,6 @@ export default function useGetFood() {
     dataFoodCat,
     setDataFoodCat,
     handleGetFoodList,
+    loading
   };
 }

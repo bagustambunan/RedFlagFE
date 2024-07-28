@@ -12,7 +12,7 @@ export default function MenuButton() {
   ];
   return (
     <Row
-      className='bg-white fixed bottom-0 h-15 py-2 px-5 shadow-inner shadow-gray-100 w-[480px]'
+      className='bg-[#242526] fixed bottom-0 h-15 py-2 px-5 shadow-inner shadow-[#242526] w-[480px]'
       justify={"space-between"}
     >
       {MenuButtons.map((btn) => (

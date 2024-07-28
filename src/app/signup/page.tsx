@@ -6,6 +6,7 @@ import useRegister from "./hooks";
 import Link from "next/link";
 import Image from 'next/image';
 import RegisterImage from '../../../public/eating.png'; // Assuming you have the image in the specified path
+import { COLOR } from "../constants";
 
 export default function Page() {
   const { form, handleSubmit, loading } = useRegister();
@@ -67,13 +68,13 @@ const styles: { [key: string]: CSSProperties } = {
     justifyContent: 'center',
     alignItems: 'center',
     height: '100vh',
-    backgroundColor: '#f8f9fa',
+    backgroundColor: COLOR.bgColor,
   },
   card: {
     padding: '2rem',
     borderRadius: '8px',
     boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-    backgroundColor: '#fff',
+    backgroundColor: COLOR.secColor,
     maxWidth: '400px',
     width: '100%',
     textAlign: 'center' as 'center', // Explicitly setting the type here
@@ -81,7 +82,7 @@ const styles: { [key: string]: CSSProperties } = {
   title: {
     fontSize: '1.5rem',
     fontWeight: 'bold',
-    color: '#d62828',
+    color: COLOR.acColor,
   },
   subtitle: {
     fontSize: '1rem',
@@ -93,13 +94,13 @@ const styles: { [key: string]: CSSProperties } = {
   },
   forgotPassword: {
     float: 'right',
-    color: '#d62828',
+    color: COLOR.acColor,
   },
   loginButton: {
     width: '100%',
     marginBottom: 10,
-    backgroundColor: '#d62828',
-    borderColor: '#d62828',
+    backgroundColor: COLOR.acColor,
+    borderColor: COLOR.acColor,
   },
   socialButtons: {
     margin: '1rem 0',
