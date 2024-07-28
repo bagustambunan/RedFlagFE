@@ -11,6 +11,7 @@ export default function useGetFood() {
   const [userFavFood, setUserFavFood] = useState<string[]>([]);
   const token = localStorage.getItem("token");
   const [loading, setLoading] = useState(false);
+  const [dataFilteredFavFood, setDataFilterFavFood] = useState<Food[]>([]);
   const [bmiUpdated, setBmiUpdated] = useState(false);
   const route = useRouter();
 
@@ -52,10 +53,16 @@ export default function useGetFood() {
     setUserFavFood(res.data.userFoodFavCat);
   }
 
+  async function getUserFilteredFavFood() {
+    const res = await post({ url: "/filterFood", params: { token } });
+    setDataFilterFavFood(res.data);
+  }
+
   useEffect(() => {
     handleGetFoodList();
     getUserFavFood();
     handleGetFoodCat();
+    getUserFilteredFavFood();
   }, []);
 
   return {
@@ -71,5 +78,7 @@ export default function useGetFood() {
     userFavFood,
     setUserFavFood,
     bmiUpdated,
+    getUserFilteredFavFood,
+    dataFilteredFavFood
   };
 }

@@ -5,29 +5,47 @@ import Layout from "../components/layout";
 import Image from "next/image";
 import FoodCard from "../components/food-card";
 import Preference from "../components/preference";
-import { Affix, Row, Space, Typography, Col, Select, SelectProps } from "antd";
+import {
+  Affix,
+  Row,
+  Space,
+  Typography,
+  Col,
+  Select,
+  SelectProps,
+  Card,
+} from "antd";
 import useGetFood from "./hooks";
 import LoadingPage from "../components/loading-page";
 import { COLOR } from "../constants";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
+import dummyImage from "../../../public/chef.png";
 
 export default function Dashboard() {
   const [container, setContainer] = React.useState<HTMLDivElement | null>(null);
-  const { Text } = Typography;
-  const { data, loading, getUserFavFood, userFavFood, bmiUpdated } =
-    useGetFood();
+  const { Text, Title } = Typography;
+  const {
+    data,
+    loading,
+    getUserFavFood,
+    userFavFood,
+    bmiUpdated,
+    dataFilteredFavFood,
+  } = useGetFood();
   const hasBMI = localStorage.getItem("bmi") || false;
   // const [favFood, setFavfood] = useState<string[]>([]);
-  const route = useRouter()
+  const route = useRouter();
 
-  const options: SelectProps["options"] = userFavFood.map((item) => {
-    return {
-      label: item,
-      value: item,
-    };
-  });
+  const foods = dataFilteredFavFood.length > 0 ? dataFilteredFavFood : data;
 
-  if(!hasBMI) route.push("/bmi")
+  // const options: SelectProps["options"] = userFavFood.map((item) => {
+  //   return {
+  //     label: item,
+  //     value: item,
+  //   };
+  // });
+
+  if (!hasBMI) route.push("/bmi");
   if (loading) return <LoadingPage />;
 
   function handleMultipleSelection(val: string[]) {
@@ -47,17 +65,17 @@ export default function Dashboard() {
                   Hello, what would you like to eat today? Here are our
                   recommended dishes.
                 </Text>
-                <Select
+                {/* <Select
                   mode='multiple'
                   // value={userFavFood}
                   allowClear
                   style={{ width: "100%" }}
                   options={options}
                   onChange={(val) => handleMultipleSelection(val)}
-                />
+                /> */}
               </Row>
               <Row justify={"center"} className='w-100'>
-                {data?.map((food) => (
+                {foods?.map((food) => (
                   <Col xs={24} sm={24} md={24} lg={24} key={food.foodID}>
                     <FoodCard
                       key={food.foodID}
@@ -66,6 +84,29 @@ export default function Dashboard() {
                       fodcat={food.foodCat}
                     />
                   </Col>
+                  // <div key={food.foodID} style={{ marginBottom: 24 }}>
+                  //   <Title level={3}>{food.foodName}</Title>
+                  //   <Text>{food.foodCal}</Text>
+                  //   <Card hoverable style={{ marginTop: 16 }}>
+                  //     <Row>
+                  //       <Col span={8}>
+                  //         <Image
+                  //           src={dummyImage}
+                  //           alt={"dummy"}
+                  //           width={200}
+                  //           height={150}
+                  //           style={{ objectFit: "cover" }}
+                  //         />
+                  //       </Col>
+                  //       <Col span={16} style={{ paddingLeft: 16 }}>
+                  //         <Title level={4}>{food.foodName}</Title>
+                  //         {/* <Text strong>{item.}</Text> */}
+                  //         <br />
+                  //         {/* <Text>{item.place}</Text> */}
+                  //       </Col>
+                  //     </Row>
+                  //   </Card>
+                  // </div>
                 ))}
               </Row>
             </Affix>
