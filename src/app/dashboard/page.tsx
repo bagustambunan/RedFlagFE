@@ -14,6 +14,7 @@ import {
   Select,
   SelectProps,
   Card,
+  Button,
 } from "antd";
 import useGetFood from "./hooks";
 import LoadingPage from "../components/loading-page";
@@ -31,12 +32,11 @@ export default function Dashboard() {
     userFavFood,
     bmiUpdated,
     dataFilteredFavFood,
+    getDataGenererate
   } = useGetFood();
   const hasBMI = localStorage.getItem("bmi") || false;
   // const [favFood, setFavfood] = useState<string[]>([]);
   const route = useRouter();
-
-  const foods = dataFilteredFavFood.length > 0 ? dataFilteredFavFood : data;
 
   // const options: SelectProps["options"] = userFavFood.map((item) => {
   //   return {
@@ -53,6 +53,11 @@ export default function Dashboard() {
     // setFavfood(val)
   }
 
+  function handleClick(){
+    getDataGenererate()
+  }
+
+
   return (
     <div>
       <Layout>
@@ -60,11 +65,12 @@ export default function Dashboard() {
           <Space ref={setContainer}>
             <Affix target={() => container}>
               <Row justify={"center"} className='text-center'>
-                <h2 style={styles.title}>RedFlag Apps</h2>
+                <h2 style={styles.title}>What to Eat</h2>
                 <Text style={styles.subtitle}>
                   Hello, what would you like to eat today? Here are our
                   recommended dishes.
                 </Text>
+                <Button onClick={() => handleClick()}>generate</Button>
                 {/* <Select
                   mode='multiple'
                   // value={userFavFood}
@@ -75,7 +81,7 @@ export default function Dashboard() {
                 /> */}
               </Row>
               <Row justify={"center"} className='w-100'>
-                {foods?.map((food) => (
+                {data?.map((food) => (
                   <Col xs={24} sm={24} md={24} lg={24} key={food.foodID}>
                     <FoodCard
                       key={food.foodID}

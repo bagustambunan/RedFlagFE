@@ -58,6 +58,19 @@ export default function useGetFood() {
     setDataFilterFavFood(res.data);
   }
 
+  async function getDataGenererate(){
+    setLoading(true)
+    try {
+      const res = await post({url: '/getFoodMenu', params: {token}})
+      setData(res.data)
+      
+    } catch (error) {
+      
+    }finally{
+      setLoading(false)
+    }
+  }
+
   useEffect(() => {
     handleGetFoodList();
     getUserFavFood();
@@ -79,6 +92,7 @@ export default function useGetFood() {
     setUserFavFood,
     bmiUpdated,
     getUserFilteredFavFood,
-    dataFilteredFavFood
+    dataFilteredFavFood,
+    getDataGenererate
   };
 }
